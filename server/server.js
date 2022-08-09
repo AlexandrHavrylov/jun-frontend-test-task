@@ -83,6 +83,7 @@ app.get("/", function (req, res) {
 
 socketServer.on("connection", (socket) => {
   socket.on("start", () => {
+    console.log("CONTECTED SUCCES", socket.id);
     horses.map((horse) => (horse.distance = 0));
     trackTickers(socket);
   });
