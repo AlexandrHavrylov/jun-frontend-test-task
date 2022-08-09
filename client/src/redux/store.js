@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import horsers from "./horsers/horsersSlice";
+import horses from "./horses/horsesSlice";
 
 export const store = configureStore({
   reducer: {
-    horsers,
+    horses,
   },
 });
