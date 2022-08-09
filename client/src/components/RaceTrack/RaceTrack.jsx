@@ -5,15 +5,16 @@ import {
   Horse,
   HorseName,
   RaceStrip,
+  RaceStripsList,
   TrackWrapper,
 } from "./RaceTrack.styled";
 import { FaHorse } from "react-icons/fa";
 
 export default function RaceTrack() {
-  const horses = useSelector((state) => state.horses.horses);
+  const horses = useSelector((state) => state.race.horses);
   return (
     <TrackWrapper>
-      <ul>
+      <RaceStripsList>
         {horses?.map((horse, idx) => (
           <RaceStrip key={idx}>
             <HorseName>
@@ -26,7 +27,7 @@ export default function RaceTrack() {
             </Horse>
           </RaceStrip>
         ))}
-      </ul>
+      </RaceStripsList>
     </TrackWrapper>
   );
 }

@@ -5,16 +5,21 @@ export const TrackWrapper = styled.div`
   margin-top: 30px;
   padding: 10px;
   box-shadow: 13px 21px 172px 16px rgba(0, 0, 0, 0.36);
-  width: 1240px;
+  width: 100%;
+`;
+
+export const RaceStripsList = styled.ul`
+  margin-top: 10px;
 `;
 export const RaceStrip = styled.li`
   border: 1px black solid;
   border-radius: 30px;
-  width: 1050px;
+  width: 1100px;
   text-align: center;
   padding: 10px;
   background-color: #adf6ad;
   position: relative;
+  margin: 0 auto;
 `;
 
 export const Horse = styled.div`
@@ -36,6 +41,6 @@ export const FinishLine = styled(GiFinishLine)`
   width: 24px;
   height: 24px;
   position: absolute;
-  right: 28px;
+  right: 60px;
   top: 38px;
 `;

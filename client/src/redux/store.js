@@ -3,6 +3,6 @@ import horses from "./horses/horsesSlice";
 
 export const store = configureStore({
   reducer: {
-    horses,
+    race: horses,
   },
 });

@@ -1,21 +1,35 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
-import { backToStart, subscribe } from "../../redux/horses/horsesSlice";
 import RaceTrack from "../RaceTrack/RaceTrack";
+import { backToStart, subscribe } from "../../redux/horses/horsesSlice";
+import { io } from "socket.io-client";
+
 import { Button, Wrapper } from "./App.styled";
 
-const socket = io("localhost:3002");
+const PORT = "localhost:3002";
+
+const socket = io(`${PORT}`);
 
 function App() {
-  const dispatch = useDispatch();
-  const horses = useSelector((state) => state.horses.horses);
-
   const [isStarted, setIsStarted] = useState(false);
 
-  const isAllFinished = horses
-    .map((el) => el.distance)
-    .every((el) => el === 1000);
+  const dispatch = useDispatch();
+  const horses = useSelector((state) => state.race.horses);
+
+  const isAllFinished = useMemo(() => {
+    return horses.reduce((acc, horse) => {
+      if (horse.distance < 1000) {
+        acc = false;
+      }
+      return acc;
+    }, true);
+  }, [horses]);
+
+  useEffect(() => {
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (isAllFinished) {
@@ -23,19 +37,20 @@ function App() {
     }
   }, [isAllFinished]);
 
-  const startRace = () => {
+  const startRace = useCallback(() => {
     socket.connect();
     socket.emit("start");
     socket.on("ticker", (data) => {
       dispatch(subscribe(data));
       setIsStarted(true);
     });
-  };
+  }, [dispatch]);
 
-  const restartRace = () => {
+  const restartRace = useCallback(() => {
     dispatch(backToStart());
     setIsStarted(false);
-  };
+    socket.disconnect();
+  }, [dispatch]);
 
   return (
     <Wrapper>
@@ -47,6 +62,7 @@ function App() {
         <Button disabled={!isAllFinished} onClick={restartRace}>
           BACK TO START
         </Button>
+        <Button onClick={restartRace}>RESET</Button>
       </div>
       <RaceTrack />
     </Wrapper>
