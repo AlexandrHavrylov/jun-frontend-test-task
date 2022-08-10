@@ -6,11 +6,14 @@ export const TrackWrapper = styled.div`
   padding: 10px;
   box-shadow: 13px 21px 172px 16px rgba(0, 0, 0, 0.36);
   width: 100%;
+  display: flex;
+  justify-content: space-around;
 `;
 
 export const RaceStripsList = styled.ul`
   margin-top: 10px;
 `;
+
 export const RaceStrip = styled.li`
   border: 1px black solid;
   border-radius: 30px;
@@ -32,7 +35,7 @@ export const Horse = styled.div`
   border-radius: 30px;
   padding: 2px;
   transform: translateX(${(props) => props.value}px);
-  transition: transform 1005ms linear;
+  transition: transform 1000ms linear;
 `;
 
 export const HorseName = styled.span``;

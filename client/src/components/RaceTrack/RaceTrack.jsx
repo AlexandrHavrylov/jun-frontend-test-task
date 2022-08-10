@@ -9,9 +9,11 @@ import {
   TrackWrapper,
 } from "./RaceTrack.styled";
 import { FaHorse } from "react-icons/fa";
+import Winners from "../Winners/Winners";
 
 export default function RaceTrack() {
   const horses = useSelector((state) => state.race.horses);
+
   return (
     <TrackWrapper>
       <RaceStripsList>
@@ -28,6 +30,7 @@ export default function RaceTrack() {
           </RaceStrip>
         ))}
       </RaceStripsList>
+      <Winners />
     </TrackWrapper>
   );
 }
