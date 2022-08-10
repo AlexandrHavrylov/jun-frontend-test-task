@@ -9,7 +9,7 @@ const initialState = {
     { name: "Lacey", distance: 0 },
     { name: "Ginger", distance: 0 },
   ],
-  winners: [],
+  finishers: [],
 };
 
 const horses = createSlice({
@@ -29,16 +29,16 @@ const horses = createSlice({
         { name: "Ginger", distance: 0 },
       ];
     },
-    setWinners: (state, action) => {
-      state.winners = [...state.winners, action.payload];
+    addFinisher: (state, action) => {
+      state.finishers = [...state.finishers, action.payload];
     },
-    resetWinners: (state) => {
-      state.winners = [];
+    resetFinishers: (state) => {
+      state.finishers = [];
     },
   },
   extraReducers: {},
 });
 
 export default horses.reducer;
-export const { subscribe, backToStart, setWinners, resetWinners } =
+export const { subscribe, backToStart, addFinisher, resetFinishers } =
   horses.actions;

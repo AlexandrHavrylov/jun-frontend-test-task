@@ -1,38 +1,38 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setWinners } from "../../redux/horses/horsesSlice";
-import { TableData, TableHead, TableRaw, WinnersTable } from "./Winners.sryled";
+import { addFinisher } from "../../redux/horses/horsesSlice";
+import { TableData, TableHead, TableRaw, Table } from "./FinishersTable.styled";
 
-export default function Winners() {
+export default function FinishersTable() {
   const dispatch = useDispatch();
   const horses = useSelector((state) => state.race.horses);
-  const winners = useSelector((state) => state.race.winners);
+  const finishers = useSelector((state) => state.race.finishers);
 
   useEffect(() => {
     horses.forEach((horse) => {
-      if (horse.distance === 1000 && !winners.includes(horse.name)) {
-        dispatch(setWinners(horse.name));
+      if (horse.distance === 1000 && !finishers.includes(horse.name)) {
+        dispatch(addFinisher(horse.name));
       }
     });
-  }, [horses, winners, dispatch]);
+  }, [horses, finishers, dispatch]);
 
   return (
-    <WinnersTable>
+    <Table>
       <thead>
         <TableRaw>
           <TableHead>Name</TableHead>
-          <TableHead>Position</TableHead>
+          <TableHead>Place</TableHead>
         </TableRaw>
       </thead>
       <tbody>
-        {winners?.map((horse, idx) => (
+        {finishers?.map((horse, idx) => (
           <TableRaw key={idx}>
             <TableData>{horse}</TableData>
             <TableData>{idx + 1}</TableData>
           </TableRaw>
         ))}
       </tbody>
-    </WinnersTable>
+    </Table>
   );
 }

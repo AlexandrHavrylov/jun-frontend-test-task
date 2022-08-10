@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const WinnersTable = styled.table`
+export const Table = styled.table`
   border-collapse: collapse;
   margin-top: 10px;
 `;

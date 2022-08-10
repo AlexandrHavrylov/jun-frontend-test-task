@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RaceTrack from "../RaceTrack/RaceTrack";
 import {
   backToStart,
-  resetWinners,
+  resetFinishers,
   subscribe,
 } from "../../redux/horses/horsesSlice";
 import { io } from "socket.io-client";
@@ -37,7 +37,7 @@ function App() {
   }, [isAllFinished]);
 
   const startRace = useCallback(() => {
-    dispatch(resetWinners());
+    dispatch(resetFinishers());
     socket.connect();
     socket.emit("start");
     socket.on("ticker", (data) => {
@@ -48,7 +48,7 @@ function App() {
 
   const restartRace = useCallback(() => {
     dispatch(backToStart());
-    dispatch(resetWinners());
+    dispatch(resetFinishers());
     setIsStarted(false);
     socket.disconnect();
   }, [dispatch]);
